@@ -3,8 +3,11 @@ name: Daily Apify Sync
 on:
   workflow_dispatch:
   schedule:
-    - cron: '17 10 * * *'
-      timezone: 'America/New_York'
+    # GitHub Actions schedule triggers always run in UTC; a `timezone` key
+    # under `cron` is not supported and was silently ignored, so this never
+    # actually ran at 10:17 America/New_York as intended.
+    # 14:17 UTC = 10:17 EDT (UTC-4). During EST (UTC-5) this runs at 9:17 ET.
+    - cron: '17 14 * * *'
 
 permissions:
   contents: write
